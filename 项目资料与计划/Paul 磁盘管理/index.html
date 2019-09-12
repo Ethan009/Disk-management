@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>index</title>
+<meta charset="utf-8">
+<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css"
+	rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<div class="container">
+
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>磁盘</th>
+					<th>快捷分区</th>
+					<th>详细分区</th>
+				</tr>
+			</thead>
+			{% for key in data_key%}
+			<tbody>
+
+				<tr class="parent" id="row_01">
+					<td>{{key}}</td>
+					<form action="/" method="POST">
+						<td>
+							<button name="yjfq" type="submit" value="{{key}}"
+								class="btn btn-success ">一键分区</button>
+						</td>
+					</form>
+					<td>
+						<button class="btn btn-danger" data-toggle="modal"
+							data-target="#addUserModal">添加分区</button>
+					</td>
+				</tr>
+				<tr class="child_row_01">
+					<th>分区</th>
+					<th>类型</th>
+					<th>是否挂载</th>
+					<th>等级</th>
+					<th>新建文件类型</th>
+					<th>进行挂载</th>
+				</tr>
+				{% for dataa in data[key] %}
+				<tr class="child_row_01">
+					<td>{{dataa[0]}}</td>
+					<td>{{dataa[1]}}</td>
+					<td>{{dataa[2]}}</td>
+					<td>{{dataa[3]}}</td>
+					<td>
+						<button type="button" class="btn btn-info" data-toggle="modal"
+							data-target="#myModall">文件类型</button>
+					</td>
+					<td>
+						<button class="btn btn-info" data-toggle="modal"
+							data-target="#addUserModall">磁盘挂载</button>
+					</td>
+				</tr>
+				{% endfor%}
+			</tbody>
+			{% endfor %}
+		</table>
+
+
+		<!-- 自行分区 -->
+		<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">手动分区信息输入</h4>
+					</div>
+					<div class="modal-body">
+						<form action="/" method="POST">
+							<div class="form-group">
+								<label for="user_id" class="col-sm-3 control-label">预分区磁盘</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" name="yufenqu" value=""
+										id="yufenqu" readonly>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="user_id" class="col-sm-3 control-label">分区号</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" name="fengquhao"
+										value="" id="n" placeholder="1-4,请勿输入重复分区号">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="lastname" class="col-sm-3 control-label">开始</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" name="start" value=""
+										id="user_name" placeholder="2048-1097151">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="lastname" class="col-sm-3 control-label">结束</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" name="end" value=""
+										id="address" placeholder="大于开始">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">关闭</button>
+								<button type="submit" class="btn btn-primary">提交</button>
+							</div>
+						</form>
+					</div>
+
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+
+
+		<!-- 磁盘挂载 -->
+		<div class="modal fade" id="addUserModall" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">磁盘挂载</h4>
+					</div>
+					<div class="modal-body">
+						<form action="/" method="POST">
+							<div class="form-group">
+								<label for="user_id" class="col-sm-4 control-label">预挂载磁盘</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" name="ygzcpm" value=""
+										id="ygzcpm" readonly>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="user_id" class="col-sm-4 control-label">文件夹路径输入</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" name="wjjlj" value=""
+										id="n" placeholder="例如: /home/feixitek/桌面/abc">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">关闭</button>
+								<button type="submit" class="btn btn-primary">提交</button>
+							</div>
+						</form>
+
+					</div>
+
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+
+		<!-- 文件类型 -->
+
+		<div class="modal " id="myModall" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">文件类型</h4>
+					</div>
+					<div class="modal-body">
+						<form action="/" method="POST">
+							<div class="form-group">
+								<label for="user_id" class="col-sm-4 control-label">当前磁盘分区</label>
+								<div class="col-sm-8">
+									<input style="width: 100px;" type="text" class="form-control"
+										name="xxx" value="" id="xxx" readonly>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="user_id" class="col-sm-4 control-label">文件类型选择</label>
+								<div class="col-sm-8">
+									<select style="width: 100px;">
+										<option value="ext2">ext2</option>
+										<option value="ext3">ext3</option>
+										<option value="vfat">vfat</option>
+										<option value="ext4">ext4</option>
+									</select> <input type="hidden" id="hidden" name="hidden" value=""
+										placeholder="文件系统类型" />
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-primary">确认修改</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+
+	</div>
+	<script type="text/javascript">
+	$('#myModall').on('show.bs.modal', function (event) {
+            $("textarea[name = refuseTextareaContext]").innerHTML = "";
+            var btnThis = $(event.relatedTarget); //触发事件的按钮
+            var modal = $(this);  //当前模态框
+            var modalId = btnThis.data('id');   //解析出data-id的内容
+            currentDataId = btnThis.closest('tr').find('td').eq(0).text();//获取某一列的内容eq后面表示列数
+            $("#xxx").val(currentDataId);
+        });
+        
+       	$('#addUserModall').on('show.bs.modal', function (event) {
+            $("textarea[name = refuseTextareaContext]").innerHTML = "";
+            var btnThis = $(event.relatedTarget); //触发事件的按钮
+            var modal = $(this);  //当前模态框
+            var modalId = btnThis.data('id');   //解析出data-id的内容
+            currentDataId = btnThis.closest('tr').find('td').eq(0).text();//获取某一列的内容eq后面表示列数
+            $("#ygzcpm").val(currentDataId);
+        });
+        
+        $('#addUserModal').on('show.bs.modal', function (event) {
+            $("textarea[name = refuseTextareaContext]").innerHTML = "";
+            var btnThis = $(event.relatedTarget); //触发事件的按钮
+            var modal = $(this);  //当前模态框
+            var modalId = btnThis.data('id');   //解析出data-id的内容
+            currentDataId = btnThis.closest('tr').find('td').eq(0).text();//获取某一列的内容eq后面表示列数
+            $("#yufenqu").val(currentDataId);
+        });
+	
+	
+	
+	</script>
+
+
+	<script type="text/javascript">
+	  $('select').change(function(){
+	  	$('#hidden').val($('select').val());
+	  });
+	</script>
+	<script type="text/javascript">
+            //表格的展开和收缩实现代码
+            $(function(){
+    $("tr.parent").click(function(){
+        $(this)
+        .toggleClass("selected")
+        .siblings('.child_'+this.id).toggle();
+    }).click();
+});
+ 
+	function selectOnchang(obj){  
+	 //获取被选中的option标签选项 
+	 alert("文件类型修改成功");
+	}
+
+</script>
+
+
+
+</body>
+</html>
