@@ -5,23 +5,24 @@ from flask import Flask,render_template
 import difflib
 import re
 import os
-import pexpect
+#import pexpect
 import sys
+import commands
+import subprocess
 
 # reload(sys)
 # sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
 
-# def disk_view():
-#     import commands
-#     diskmount = commands.getoutput("sudo lsblk -lf ")
-#     return diskmount
+def disk_view():
+    diskmount = subprocess.getoutput("lsblk -lf ")
+    return diskmount
 
 
 def datapc():
-    import commands
-    datapc = commands.getoutput("sudo lsblk -lf ")
+
+    datapc = subprocess.getoutput("lsblk -lf ")
     # 正则表达式
     re_disk_device = r'(sd[a-z]{1,2}\b)'
     re_partition_no_fs = r'.*(sd\D{1,2}\d{1,2})'
@@ -74,12 +75,12 @@ def datapc():
         print (dicDI)
     return dicDI
 
-datapc()
 
 @app.route('/')
 def hello_world():
-    print (datapc())
-    return render_template('index.html')
+    Diskdata=disk_view()
+    Diskdata_pc=datapc()
+    return render_template('index.html',Diskdata=Diskdata_pc)
 
 
 
