@@ -75,16 +75,32 @@ def datapc():
         print (dicDI)
     return dicDI
 
+def data_to_json():
+    lis_data=[]
+    dic_data={}
+    Diskdata_pc = datapc()
+    keys=Diskdata_pc.keys()
+    values=Diskdata_pc.values()
+    for key in keys():
+        dic_data['disk']=key
+        dic_data['options'] = []
+        dic_child_data={}
+        for value in values:
+            dic_child_data['name']=value[0]
+            dic_child_data['file_system']=value[1]
+            dic_child_data['file_name']=value[2]
+            dic_child_data['status']=value[3]
+            dic_data['options'].append(dic_child_data)
+        lis_data.append(dic_data)
+    return lis_data
 
 @app.route('/')
 def hello_world():
     Diskdata=disk_view()
-    Diskdata_pc=datapc()
-    return render_template('index.html',Diskdata=Diskdata_pc.items())
+    Diskdata_pc=data_to_json()
+    return render_template('index.html',Diskdata=Diskdata_pc)
 
-
-
-
+dict_items=([('sba',[])])
 
 
 if __name__ == '__main__':

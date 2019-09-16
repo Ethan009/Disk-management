@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .radio-wrap {
+      width: 500px;
+      margin: 200px auto;
+      border: 1px solid #ddd;
+    }
+    .section {
+      display: flex;
+      min-height: 50px;
+      border-bottom: 1px solid #ddd;
+    }
+    .section:last-child {
+      border-bottom: none;
+    }
+    .section .title {
+      display: flex;
+      flex: 0 0 80px;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid #ddd;
+      color: #aaa;
+    }
+    .section .radio-list {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      flex-wrap: wrap;
+      padding-bottom: 10px;
+    }
+    .radio-list .radio-item {
+      list-style: none;
+      margin-left: 12px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="radio-wrap" id="radioWrap">
+  </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script>
+  const data = [
+    { disk: 'sda', options: ['sda1', 'sda2', 'sda3'] },
+    { disk: 'sdb', options: ['sdb1'] },
+    { disk: 'sdb', options: [] }
+  ]
+
+const radioWrap = $('#radioWrap')
+let html = ''
+for(let i = 0; i < data.length; i++) {
+  const disk = data[i].disk
+  let optionsHtml = ''
+  for (let j = 0; j < data[i].options.length; j++) {
+    optionsHtml += `
+      <div class="radio-item">
+        <label><input type="radio" name="${disk}" ${j === 0 ? 'checked' : ''}>${data[i].options[j]}</label>
+      </div>
+    `
+  }
+  html += `
+    <div class="section">
+      <div class="title">${disk}</div>
+      <div class="radio-list">
+        ${optionsHtml}
+      </div>
+    </div>
+  `
+}
+radioWrap.append(html)
+</script>
+</html>

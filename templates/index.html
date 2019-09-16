@@ -6,7 +6,54 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>网页管理系统磁盘</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+    .radio-wrap {
+      width: 500px;
+      margin: 100px auto 20px;
+      border: 1px solid #ddd;
+    }
+    .section {
+      display: flex;
+      min-height: 50px;
+      border-bottom: 1px solid #ddd;
+    }
+    .section:last-child {
+      border-bottom: none;
+    }
+    .section .title {
+      display: flex;
+      flex: 0 0 80px;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid #ddd;
+      color: #aaa;
+    }
+    .section .radio-list {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      flex-wrap: wrap;
+      padding-bottom: 10px;
+    }
+    .radio-list .radio-item {
+      list-style: none;
+      margin-left: 12px;
+      margin-top: 10px;
+    }
+    .btn-list {
+       display: flex;
+        justify-content: center;
+    }
+    .btn-list .btn {
+        margin-left: 10px;
+    }
+    .btn-.ist .btn:first-of-type {
+      margin-left: 0;
+    }
+  </style>
 </head>
+
 <body>
   <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -86,7 +133,11 @@
         </div>
       </div>
       <div class="tab-pane fade" id="port" role="tabpanel" aria-labelledby="port-tab">
-        Port Forwards
+        <div class="radio-wrap" id="radioWrap"></div>
+          <div class="btn-list">
+            <button type="button" class="btn btn-primary">确定</button>
+            <button type="button" class="btn btn-primary">取消</button>
+          </div>
       </div>
       <div class="tab-pane fade" id="trafffic" role="tabpanel" aria-labelledby="trafffic-tab">
         Trafffic Rlues
@@ -99,4 +150,34 @@
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
+<script>
+  const data = [
+    { disk: 'sda', options: [{name: 'sda1', desc: 'xinxi'},{name: 'sda2', desc: 'xinxi'}] },
+    { disk: 'sdb', options: ['sdb1'] },
+    { disk: 'sdb', options: [] }
+  ]
+
+const radioWrap = $('#radioWrap')
+let html = ''
+for(let i = 0; i < data.length; i++) {
+  const disk = data[i].disk
+  let optionsHtml = ''
+  for (let j = 0; j < data[i].options.length; j++) {
+    optionsHtml += `
+      <div class="radio-item">
+        <label><input type="checkbox" name="${disk}" ${j === 0 ? 'checked' : ''}>${data[i].options[j]}</label>
+      </div>
+    `
+  }
+  html += `
+    <div class="section">
+      <div class="title">${disk}</div>
+      <div class="radio-list">
+        ${optionsHtml}
+      </div>
+    </div>
+  `
+}
+radioWrap.append(html)
+</script>
 </html>
