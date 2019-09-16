@@ -80,7 +80,7 @@ def datapc():
 def hello_world():
     Diskdata=disk_view()
     Diskdata_pc=datapc()
-    return render_template('index.html',Diskdata=Diskdata_pc)
+    return render_template('index.html',Diskdata=Diskdata_pc.items())
 
 
 

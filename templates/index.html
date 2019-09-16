@@ -74,7 +74,16 @@
     </ul>
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
-        <div>{{Diskdata}}</div>
+        <div>
+            <h2>Disk status</h2>
+            <div>
+            <ul class="list-group list-group-flush">
+                {% for Disk_status in Diskdata %}
+                    <li class="list-group-item">{{ Disk_status }}</li>
+                {% endfor %}
+            </ul>
+            </div>
+        </div>
       </div>
       <div class="tab-pane fade" id="port" role="tabpanel" aria-labelledby="port-tab">
         Port Forwards
