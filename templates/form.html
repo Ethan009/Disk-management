@@ -4,54 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>网页管理系统磁盘</title>
+  <title>Document</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <style>
-    .radio-wrap {
-      width: 500px;
-      margin: 100px auto 20px;
-      border: 1px solid #ddd;
-    }
-    .section {
-      display: flex;
-      min-height: 50px;
-      border-bottom: 1px solid #ddd;
-    }
-    .section:last-child {
-      border-bottom: none;
-    }
-    .section .title {
-      display: flex;
-      flex: 0 0 80px;
-      align-items: center;
-      justify-content: center;
-      border-right: 1px solid #ddd;
-      color: #aaa;
-    }
-    .section .radio-list {
-      display: flex;
-      margin: 0;
-      padding: 0;
-      align-items: center;
-      flex-wrap: wrap;
-      padding-bottom: 10px;
-    }
-    .radio-list .radio-item {
-      list-style: none;
-      margin-left: 12px;
-      margin-top: 10px;
-    }
-    .btn-list {
-       display: flex;
-        justify-content: center;
-    }
-    .btn-list .btn {
-        margin-left: 10px;
-    }
-    .btn-.ist .btn:first-of-type {
-      margin-left: 0;
-    }
-        #myTab {
+  <style>
+    #myTab {
       margin-top: 20px;
     }
     #accordionExample {
@@ -90,11 +46,10 @@
     }
   </style>
 </head>
-
 <body>
   <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">OpenWRT</a>
+      <a class="navbar-brand" href="#">OpenWrt</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
@@ -157,64 +112,82 @@
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
+      <!-- 第一个模块开始 -->
       <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
-        <div>
-            <h2>Disk status</h2>
-            <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
-                <div class="accordion" id="accordionExample">
-                </div></div>
+        <div class="accordion" id="accordionExample">
+          <!-- <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Sda
+                </button>
+              </h5>
+            </div>
+        
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body">
+                <ul class="disk-desc-list">
+                  <li class="desc-item">
+                    <div class="title">磁盘信息：</div>
+                    <div class="content">111222333</div>
+                  </li>
+                  <li class="desc-item">
+                    <div class="title">磁盘信息：</div>
+                    <div class="content">111222333</div>
+                  </li>
+                  <li class="desc-item">
+                    <div class="title">磁盘信息：</div>
+                    <div class="content">111222333</div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Sdb
+                </button>
+              </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div class="card-body">
+                <ul class="disk-desc-list">
+                  <li class="desc-item">
+                    <div class="title">磁盘信息：</div>
+                    <div class="content">111222333</div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div> -->
         </div>
       </div>
+      <!-- 第一个模块结束 -->
+
+      <!-- 第二个模块开始 -->
       <div class="tab-pane fade" id="port" role="tabpanel" aria-labelledby="port-tab">
-        <div class="radio-wrap" id="radioWrap"></div>
-          <div class="btn-list">
-            <button type="button" class="btn btn-primary">确定</button>
-            <button type="button" class="btn btn-primary">取消</button>
-          </div>
+        Port Forwards
       </div>
+      <!-- 第二个模块结束 -->
+
+      <!-- 第三个模块开始 -->
       <div class="tab-pane fade" id="trafffic" role="tabpanel" aria-labelledby="trafffic-tab">
         Trafffic Rlues
       </div>
+      <!-- 第三个模块结束 -->
+
+      <!-- 第四个模块开始 -->
       <div class="tab-pane fade" id="custom" role="tabpanel" aria-labelledby="custom-tab">
         Custom Rules
       </div>
+      <!-- 第四个模块结束 -->
     </div>
   </div>
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</body>
-<script>
-  const data =
-      [
-    { disk: 'sda', options: [{name: 'sda1', desc: 'xinxi'},{name: 'sda2', desc: 'xinxi'}] },
-    { disk: 'sdb', options: ['sdb1'] },
-    { disk: 'sdb', options: [] }
-  ]
-
-const radioWrap = $('#radioWrap')
-let html = ''
-for(let i = 0; i < data.length; i++) {
-  const disk = data[i].disk
-  let optionsHtml = ''
-  for (let j = 0; j < data[i].options.length; j++) {
-    optionsHtml += `
-      <div class="radio-item">
-        <label><input type="checkbox" name="${disk}" ${j === 0 ? 'checked' : ''}>${data[i].options[j]}</label>
-      </div>
-    `
-  }
-  html += `
-    <div class="section">
-      <div class="title">${disk}</div>
-      <div class="radio-list">
-        ${optionsHtml}
-      </div>
-    </div>
-  `
-}
-radioWrap.append(html)
-</script>
-<script>
+  <script>
     const data = [
       { disk: 'sda', options: [{name: 'sda1', desc: '磁盘信息'}, {name: 'sda2', desc: '磁盘信息'}, {name: 'sda3', desc: '磁盘信息'}] },
       { disk: 'sdb', options: [{name: 'sdbc', desc: '磁盘信息'}] },
@@ -223,6 +196,34 @@ radioWrap.append(html)
     const accordionExample = $("#accordionExample")
     let html = ''
     let diskItemHtml = ''
+    // <div class="card">
+    //   <div class="card-header" id="headingOne">
+    //     <h5 class="mb-0">
+    //       <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+    //         Sda
+    //       </button>
+    //     </h5>
+    //   </div>
+  
+    //   <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+    //     <div class="card-body">
+    //       <ul class="disk-desc-list">
+    //         <li class="desc-item">
+    //           <div class="title">磁盘信息：</div>
+    //           <div class="content">111222333</div>
+    //         </li>
+    //         <li class="desc-item">
+    //           <div class="title">磁盘信息：</div>
+    //           <div class="content">111222333</div>
+    //         </li>
+    //         <li class="desc-item">
+    //           <div class="title">磁盘信息：</div>
+    //           <div class="content">111222333</div>
+    //         </li>
+    //       </ul>
+    //     </div>
+    //   </div>
+    // </div>
     for (let i = 0; i < data.length; i++) {
       diskItemHtml = ''
       for (let j = 0; j < data[i].options.length; j++) {
@@ -239,7 +240,7 @@ radioWrap.append(html)
           </li>
         `
       }
-
+      
       html += `
       <div class="card">
         <div class="card-header" id="heading${i}">
@@ -249,7 +250,7 @@ radioWrap.append(html)
             </button>
           </h5>
         </div>
-
+    
         <div id="collapse${i}" class="collapse ${i === 0 ? 'show' : ''}" aria-labelledby="heading${i}" data-parent="#accordionExample">
           <div class="card-body">
             <ul class="disk-desc-list">
@@ -263,4 +264,5 @@ radioWrap.append(html)
 
     accordionExample.append(html)
   </script>
+</body>
 </html>
