@@ -72,7 +72,7 @@ def datapc():
                 continue
     # print(lstDisk)
     # pprint.pprint(dicDI)
-        print (dicDI)
+    print (dicDI)
     return dicDI
 
 def data_to_json():
@@ -81,17 +81,22 @@ def data_to_json():
     Diskdata_pc = datapc()
     keys=Diskdata_pc.keys()
     values=Diskdata_pc.values()
-    for key in keys():
+    #print ('keys:',type(keys),keys)
+    #print ('values:',type(values),values)
+    for key in keys:
         dic_data['disk']=key
         dic_data['options'] = []
-        dic_child_data={}
-        for value in values:
-            dic_child_data['name']=value[0]
-            dic_child_data['file_system']=value[1]
-            dic_child_data['file_name']=value[2]
-            dic_child_data['status']=value[3]
-            dic_data['options'].append(dic_child_data)
+        for lis_value in values:
+            dic_child_data={}
+            for value in lis_value:
+                #print (type(value),value)
+                dic_child_data['name']=value[0]
+                dic_child_data['file_system']=value[1]
+                dic_child_data['file_name']=value[2]
+                dic_child_data['status']=value[3]
+                dic_data['options'].append(dic_child_data)
         lis_data.append(dic_data)
+    print (lis_data)
     return lis_data
 
 @app.route('/')
