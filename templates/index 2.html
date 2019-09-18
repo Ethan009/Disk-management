@@ -166,50 +166,43 @@
         </div>
       </div>
       <div class="tab-pane fade" id="port" role="tabpanel" aria-labelledby="port-tab">
-        <form action="/" method="POST">
         <div class="radio-wrap" id="radioWrap"></div>
-           <input type="hidden" id="hidden" name="hidden" value=""
-                    placeholder="文件系统类型" />
           <div class="btn-list">
-            <button type="submit" class="btn btn-primary" >确定</button>
+            <button type="button" class="btn btn-primary">确定</button>
             <button type="button" class="btn btn-primary">取消</button>
           </div>
-         
-        </form>
       </div>
       <div class="tab-pane fade" id="trafffic" role="tabpanel" aria-labelledby="trafffic-tab">
-        <div>{{Diskdata}}</div>
+        Trafffic Rlues
       </div>
       <div class="tab-pane fade" id="custom" role="tabpanel" aria-labelledby="custom-tab">
-        <div>{{Diskdata_pv}}</div>
+        Custom Rules
       </div>
     </div>
   </div>
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
-
 <script>
-  const data_show = {{Diskdata_pv|safe}}
- // [
-   // { disk: 'sda', options: ['sda1', 'sda2', 'sda3','sda4'] },
-    //{ disk: 'sdb', options: ['sdb1'] },
-    //{ disk: 'sdb', options: [] }
- // ]
+  const data_show = 
+  [
+    { disk: 'sda', options: ['sda1', 'sda2', 'sda3','sda4'] },
+    { disk: 'sdb', options: ['sdb1'] },
+    { disk: 'sdb', options: [] }
+  ]
 const radioWrap = $('#radioWrap')
-let roiadhtml = ''
+let radioWrapHtml = ''
 for(let i = 0; i < data_show.length; i++) {
   const disk = data_show[i].disk
   let optionsHtml = ''
   for (let j = 0; j < data_show[i].options.length; j++) {
     optionsHtml += `
       <div class="radio-item">
-        
-        <label><input type="checkbox" id="disk-name" name="disk-name" value="${data_show[i].options[j]}" ${j === 0 ? 'checked' : ''}>${data_show[i].options[j]}</label>
+        <label><input type="checkbox" name="${disk}" ${j === 0 ? 'checked' : ''}>${data_show[i].options[j]}</label>
       </div>
     `
   }
-  roiadhtml += `
+  radioWrapHtml += `
     <div class="section">
       <div class="title">${disk}</div>
       <div class="radio-list">
@@ -218,25 +211,16 @@ for(let i = 0; i < data_show.length; i++) {
     </div>
   `
 }
-radioWrap.append(roiadhtml)
+radioWrap.append(radioWrapHtml)
 </script>
-<script type="text/javascript">
-    $("input[name='disk-name']").change(function(){
-      var result = ' ';
-      $("input[name='disk-name']:checked").each(function(){
-          result+=$(this).val()+',';
-      })
-      $('#hidden').val(result);
-    });
-  </script>
-
 <script>
-    const data = {{Diskdata|safe}}
-  //  [
-    //{ disk: 'sda', options: [{name: 'sda1', desc: '磁盘信息'}, {name: 'sda2', desc: '磁盘信息'}, {name: 'sda3', desc: '磁盘信息'}] },
-    //   { disk: 'sdb', options: [{name: 'sdbc', desc: '磁盘信息'}] },
-      // { disk: 'sdc', options: [] }
-    // ]
+    console.log(678);
+    const data = 
+    [
+    { disk: 'sda', options: [{name: 'sda1', desc: '磁盘信息'}, {name: 'sda2', desc: '磁盘信息'}, {name: 'sda3', desc: '磁盘信息'}] },
+       { disk: 'sdb', options: [{name: 'sdbc', desc: '磁盘信息'}] },
+       { disk: 'sdc', options: [] }
+     ]
     console.log(123);
     const accordionExample = $("#accordionExample")
     let html = ''
@@ -247,20 +231,16 @@ radioWrap.append(roiadhtml)
         diskItemHtml += `
           <li class="desc-item">
             <div class="disk-section">
-                <div class="title">磁盘分区名称：</div>
+                <div class="title">分磁盘名称：</div>
                 <div class="content">${data[i].options[j].name}</div>
             </div>
             <div class="disk-section">
-                <div class="title">分区文件系统类型：</div>
+                <div class="title">分磁盘信息：</div>
                 <div class="content">${data[i].options[j].file_system}</div>
             </div>
             <div class="disk-section">
-                <div class="title">挂载点：</div>
+                <div class="title">分磁盘信息：</div>
                 <div class="content">${data[i].options[j].file_name}</div>
-            </div>
-            <div class="disk-section">
-                <div class="title">进度等级：</div>
-                <div class="content">${data[i].options[j].status}</div>
             </div>
           </li>
         `

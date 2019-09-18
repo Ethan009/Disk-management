@@ -1,13 +1,11 @@
 #!/usr/bin/python
 # coding:utf-8
 
-from flask import Flask,render_template
+from flask import Flask,render_template,request
 import difflib
 import re
 import os
-#import pexpect
 import sys
-import commands
 import subprocess
 
 # reload(sys)
@@ -72,38 +70,69 @@ def datapc():
                 continue
     # print(lstDisk)
     # pprint.pprint(dicDI)
-    print (dicDI)
+    #print (dicDI)
     return dicDI
+# keys: <class 'dict_keys'> dict_keys(['sda', 'sdb', 'sdc', 'sdd', 'sde'])
+# values: <class 'dict_values'> dict_values([[['sda1', '', '', '2']], 
+#     [['sdb1', '', '', '2'], ['sdb2', '', '', '2'], ['sdb3', '', '', '2'], ['sdb4', '', '', '2']],
+#      [['sdc1', '', '', '2'], ['sdc2', '', '', '2'], ['sdc3', '', '', '2'], ['sdc4', '', '', '2']],
+#      [['sdd1', '', '', '2']], 
+#      []])
 
 def data_to_json():
     lis_data=[]
-    dic_data={}
+    lis_data_pv=[]
     Diskdata_pc = datapc()
     keys=Diskdata_pc.keys()
     values=Diskdata_pc.values()
     #print ('keys:',type(keys),keys)
     #print ('values:',type(values),values)
-    for key in keys:
+    for key,lis_value in zip(keys,values):
+        dic_data={}
+        dic_data_pv={}
         dic_data['disk']=key
+        dic_data_pv['disk']=key
         dic_data['options'] = []
-        for lis_value in values:
+        dic_data_pv['options'] = []
+        #for lis_value in values:
+        for value in lis_value:
+            #print (type(value),value)
             dic_child_data={}
-            for value in lis_value:
-                #print (type(value),value)
-                dic_child_data['name']=value[0]
-                dic_child_data['file_system']=value[1]
-                dic_child_data['file_name']=value[2]
-                dic_child_data['status']=value[3]
-                dic_data['options'].append(dic_child_data)
+            dic_child_data['name']=value[0]
+            dic_child_data['file_system']=value[1]
+            dic_child_data['file_name']=value[2]
+            dic_child_data['status']=value[3]
+            dic_data['options'].append(dic_child_data)
+            dic_data_pv['options'].append(value[0])
         lis_data.append(dic_data)
-    print (lis_data)
-    return lis_data
+        lis_data_pv.append(dic_data_pv)
+    #print (lis_data)
+    return lis_data,lis_data_pv
 
-@app.route('/')
+def disk_pvcreate(str_disk):
+    str_disk_name='/dev/'
+    str_disk_name_all=""
+    lis_disk=str_disk.split(',')
+    for disk in lis_disk:
+        print ('12',lis_disk)
+        if disk:
+            str_disk_name_all=str_disk_name_all+" "+(str_disk_name+disk.strip())
+    print ('name',str_disk_name_all)
+    subprocess.getoutput(str("pvcreate" + " " + str_disk_name_all))
+    print ('OK')
+
+
+@app.route('/',methods=['GET','POST'])
 def hello_world():
-    Diskdata=disk_view()
-    Diskdata_pc=data_to_json()
-    return render_template('index.html',Diskdata=Diskdata_pc)
+    #Diskdata=disk_view()
+    lis_disk=[]
+    Diskdata,Diskdata_pv=data_to_json()
+    if request.method == 'POST':
+        disk_Partition=request.values.get('hidden')
+        print ('122' , type(disk_Partition),disk_Partition)
+        disk_pvcreate(disk_Partition)
+    
+    return render_template('index.html',Diskdata=Diskdata,Diskdata_pv=Diskdata_pv)
 
 dict_items=([('sba',[])])
 
